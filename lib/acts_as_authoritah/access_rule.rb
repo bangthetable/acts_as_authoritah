@@ -1,30 +1,30 @@
-class AccessRule
-  attr_reader :identifier, :description, :access_rights
+class ActsAsAuthoritah::AccessRule
+  attr_reader :scope, :controller, :action, :access_rights
   
-  def initialize(identifier, description, access_rights)
-    @identifier    = identifier
-    @description   = description
+  def initialize(scope, controller, action, access_rights)
+    @scope = scope
+    @controller = controller
+    @action = action
     @access_rights = access_rights
   end
   
-  def action
-    return nil if @identifier.nil?
-    return nil unless @identifier.include?("#")
-    return nil if @identifier.split('').last == '#'
-    @identifier.split("#").last
+  def action?
+    @action && @action != ""
   end
   
-  def controller
-    return nil if @identifier.nil?
-    return nil if @identifier == ""
-    return @identifier.split('#').first
+  def controller?
+    @controller && @controller != ""
   end
   
-  def scopes
-    return [] if @identifier.nil?
-    return [] if @identifier == ""
-    arr = @identifier.split('::')
-    arr.length > 1 ? arr[0..-2] : []
+  def scope?
+    @scope && @scope != ""
   end
   
+  def to_rule
+    key = ""
+    key += @scope if scope?
+    key += "::#{@controller}Controller" if controller?
+    key += "##{action}" if action?
+    { key => access_rights }
+  end
 end
