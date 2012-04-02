@@ -17,7 +17,8 @@ describe ActsAsAuthoritah::AccessControlList do
         ActsAsAuthoritah::AccessRule.new("Projects", "Surveys","edit", "b"),
         ActsAsAuthoritah::AccessRule.new("Admin::Projects", nil, nil, "c"),
         ActsAsAuthoritah::AccessRule.new("Admin::Projects", "Surveys", nil, "d"),
-        ActsAsAuthoritah::AccessRule.new("Projects", "Surveys", "update", "e")
+        ActsAsAuthoritah::AccessRule.new("Projects", "Surveys", "update", "e"),
+        ActsAsAuthoritah::AccessRule.new("", "Projects", nil, "f")
       ]
       
       @acl = ActsAsAuthoritah::AccessControlList.new(rules)
@@ -45,6 +46,10 @@ describe ActsAsAuthoritah::AccessControlList do
   
     it "test6" do
       @acl.match("Admin::Projects::HomeController#update").should eq "c"
+    end
+    
+    it "test7" do
+      @acl.match("ProjectsController#create").should eq "f"
     end
 
     

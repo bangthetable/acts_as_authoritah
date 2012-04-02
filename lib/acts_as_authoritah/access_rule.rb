@@ -21,9 +21,10 @@ class ActsAsAuthoritah::AccessRule
   end
   
   def to_rule
-    key = ""
-    key += @scope if scope?
-    key += "::#{@controller}Controller" if controller?
+    key = []
+    key << @scope if scope?
+    key << "#{@controller}Controller" if controller?
+    key = key.join('::')
     key += "##{action}" if action?
     { key => access_rights }
   end

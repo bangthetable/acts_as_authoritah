@@ -24,10 +24,16 @@ describe ActsAsAuthoritah::AccessRule do
   end
   
   context "generate rule" do
-    it "should generate a valid rule" do
+    it "should generate a valid rule: case1" do
       access_rule = ActsAsAuthoritah::AccessRule.new("Admin::Projects", "BlogPosts", "create", {:admin => true, :anonymous => false})
       access_rule.to_rule.should eq({"Admin::Projects::BlogPostsController#create" => {:admin => true, :anonymous => false}})
     end
+    
+    it "should generate a valid rule: case2" do
+      access_rule = ActsAsAuthoritah::AccessRule.new("", "Projects", nil, "f")
+      access_rule.to_rule.should eq({"ProjectsController" => "f"})
+    end
+
   end
 
 end
