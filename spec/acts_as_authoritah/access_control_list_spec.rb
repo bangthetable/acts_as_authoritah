@@ -51,6 +51,10 @@ describe ActsAsAuthoritah::AccessControlList do
     it "test7" do
       @acl.match("ProjectsController#create").should eq "f"
     end
+    
+    it "test8" do
+      @acl.match("Admin::ProjectsController#create").should eq "a"
+    end
 
     
   end
