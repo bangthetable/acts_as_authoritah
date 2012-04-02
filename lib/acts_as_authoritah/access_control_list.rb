@@ -11,18 +11,18 @@ class ActsAsAuthoritah::AccessControlList
   def initialize(access_rules)
     @store = {}
     access_rules.each do |access_rule|
-      @store.merge access_rule.to_rule
+      @store.merge! access_rule.to_rule
     end
     
-    @matchers = [DirectMatcher, ControllerMatcher]
+    @matchers = [DirectMatcher, ControllerMatcher, ScopeMatcher]
   end
   
-  def match(identfier)
+  def match(identifier)
     @matchers.each do |matcher|
-      access_rights = matcher.match(@store, identifier)
+      access_rights = matcher.new(@store).match(identifier)
       return access_rights unless access_rights.nil?
     end
-    return {}
+    nil
   end
   
 end
