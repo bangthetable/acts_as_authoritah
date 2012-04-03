@@ -12,18 +12,24 @@ module ActsAsAuthoritah
   module Core
      module InstanceMethods
        def can?(identifier, options={})
-         self.class.send(:default_acl).match_identifier(identifier)[self.usertype]
+         klass = self.class
+         klass.send(:default_acl).match_identifier(identifier)[self.usertype] ||= klass.send(:whitelist)
        end
      end
      
      module ClassMethods
        def acts_as_authoritah(path, options={})
          rules = ActsAsAuthoritah::SpreadsheetWrapper.new(path).to_access_rules
+         @@whitelist = options[:whitelist] ||= false
          @@default_acl = ActsAsAuthoritah::AccessControlList.new(rules)
        end
        
        def default_acl
          @@default_acl ||= ActsAsAuthoritah::AccessControlList.new(rules)
+       end
+       
+       def whitelist
+         !@@whitelist
        end
      end
   end
