@@ -5,6 +5,8 @@ module ActsAsAuthoritah
   end
 end
 
+require "acts_as_authoritah/core"
+
 require "acts_as_authoritah/access_rule"
 require "acts_as_authoritah/access_control_list"
 require "acts_as_authoritah/identifier_parser"
