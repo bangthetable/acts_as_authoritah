@@ -10,6 +10,6 @@ describe ActsAsAuthoritah::Core do
   end
   
   it "should be able to use 'can?' on instance of Foo class" do
-    Foo.new.respond_to?('can?').should eq true
+    Foo.new.should respond_to('can?')
   end
 end
