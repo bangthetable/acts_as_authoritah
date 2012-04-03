@@ -13,7 +13,7 @@ module ActsAsAuthoritah
      module InstanceMethods
        def can?(identifier, options={})
          klass = self.class
-         klass.send(:default_acl).match_identifier(identifier)[self.usertype] ||= klass.send(:whitelist)
+         klass.send(:default_acl).match_identifier(identifier)[self.usertype(options)] ||= klass.send(:whitelist)
        end
      end
      

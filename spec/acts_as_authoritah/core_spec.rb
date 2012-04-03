@@ -4,7 +4,7 @@ describe ActsAsAuthoritah::Core do
       include ActsAsAuthoritah::Core
       acts_as_authoritah "spec/data/default.xls"
       
-      def usertype
+      def usertype(options)
         "admin"
       end
     end
@@ -31,7 +31,7 @@ describe ActsAsAuthoritah::Core do
         include ActsAsAuthoritah::Core
         acts_as_authoritah "spec/data/default.xls"
       
-        def usertype
+        def usertype(options)
           "admin"
         end
       end
@@ -48,7 +48,7 @@ describe ActsAsAuthoritah::Core do
         include ActsAsAuthoritah::Core
         acts_as_authoritah "spec/data/default.xls", :whitelist => true
       
-        def usertype
+        def usertype(options)
           "admin"
         end
       end
