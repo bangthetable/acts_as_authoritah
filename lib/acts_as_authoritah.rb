@@ -13,3 +13,4 @@ require 'spreadsheet'
 Spreadsheet.client_encoding = 'UTF-8'
 
 require "acts_as_authoritah/spreadsheets/spreadsheet_reader"
+require "acts_as_authoritah/spreadsheets/spreadsheet_row_parser"

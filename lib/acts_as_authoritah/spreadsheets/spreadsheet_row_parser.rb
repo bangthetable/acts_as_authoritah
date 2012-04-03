@@ -1,0 +1,3 @@
+class ActsAsAuthoritah::SpreadsheetRowParser
+  
+end

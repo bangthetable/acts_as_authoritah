@@ -23,4 +23,15 @@ class ActsAsAuthoritah::SpreadsheetReader
     }
     rows
   end
+  
+  def header
+    i = 0
+    rows = []
+    @sheet.each{|row|
+      i = i + 1
+      break if i > 1
+      rows << row.to_a
+    }
+    rows.first
+  end
 end
