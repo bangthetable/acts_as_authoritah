@@ -25,4 +25,8 @@ class ActsAsAuthoritah::AccessControlList
     nil
   end
   
+  def match_identifier(identifier)
+    match(identifier) || {}
+  end
+  
 end

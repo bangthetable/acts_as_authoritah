@@ -55,7 +55,24 @@ describe ActsAsAuthoritah::AccessControlList do
     it "test8" do
       @acl.match("Admin::ProjectsController#create").should eq "a"
     end
-
     
+  end
+  
+  context "match_identifier" do
+    before :each do
+      rules = [
+        ActsAsAuthoritah::AccessRule.new("Admin", nil, nil, "c"),
+      ]
+      
+      @acl = ActsAsAuthoritah::AccessControlList.new(rules)
+    end
+    
+    it "should return {} if there is no match" do
+      @acl.match_identifier("LinksController#create").should eq({})
+    end
+    
+    it "should return the matched value if there is a match" do
+      @acl.match_identifier("Admin::ProjectsController#create").should eq "c"
+    end
   end
 end
