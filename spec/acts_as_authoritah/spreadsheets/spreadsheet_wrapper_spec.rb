@@ -5,7 +5,7 @@ describe ActsAsAuthoritah::SpreadsheetWrapper do
     ActsAsAuthoritah::SpreadsheetWrapper.new("spec/data/default.xls").to_access_rules.first.class.should eq ActsAsAuthoritah::AccessRule
   end
   
-  it "ssadf" do
+  it "should load the spreadsheet to ACL correctly" do
     access_rules = ActsAsAuthoritah::SpreadsheetWrapper.new("spec/data/default.xls").to_access_rules
     ActsAsAuthoritah::AccessControlList.new(access_rules).store.should eq({
       "scope1::scope2::DummyController#edit"=>{"admin"=>true, "anonymous"=>false, "super_admin"=>true}, 
