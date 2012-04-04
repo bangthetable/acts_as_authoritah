@@ -13,7 +13,8 @@ module ActsAsAuthoritah
      module InstanceMethods
        def can?(identifier, options={})
          klass = self.class
-         klass.send(:default_acl).match_identifier(identifier)[self.usertype(options)] || klass.send(:whitelist)
+         h = klass.send(:default_acl).match_identifier(identifier)
+         h.empty? ? !klass.send(:whitelist) : h[self.usertype(options)]
        end
      end
      
@@ -29,7 +30,7 @@ module ActsAsAuthoritah
        end
        
        def whitelist
-         !@@whitelist
+         @@whitelist
        end
      end
   end

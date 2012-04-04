@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe ActsAsAuthoritah::Core do
   before :each do 
     class Foo
@@ -29,7 +31,7 @@ describe ActsAsAuthoritah::Core do
     before :each do
       class Foo
         include ActsAsAuthoritah::Core
-        acts_as_authoritah "spec/data/default.xls"
+        acts_as_authoritah "spec/data/default.xls", :whitelist => false
       
         def usertype(options)
           "admin"
