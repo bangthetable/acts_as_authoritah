@@ -9,7 +9,9 @@ require "acts_as_authoritah/core"
 
 require "acts_as_authoritah/access_rule"
 require "acts_as_authoritah/access_control_list"
+require "acts_as_authoritah/acl_loader"
 require "acts_as_authoritah/identifier_parser"
+require "acts_as_authoritah/errors.rb"
 
 require 'spreadsheet'
 Spreadsheet.client_encoding = 'UTF-8'

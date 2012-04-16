@@ -6,7 +6,7 @@ require "acts_as_authoritah/matchers/scope_matcher.rb"
 class ActsAsAuthoritah::AccessControlList
   include ActsAsAuthoritah::Matchers
   
-  attr_reader :store
+  attr_accessor :store
   
   def initialize(access_rules)
     @store = {}
@@ -27,6 +27,11 @@ class ActsAsAuthoritah::AccessControlList
   
   def match_identifier(identifier)
     match(identifier) || {}
+  end
+  
+  def merge!(other_access_control_list)
+    store.merge!(other_access_control_list.store)
+    self
   end
   
 end

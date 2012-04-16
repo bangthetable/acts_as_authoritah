@@ -75,4 +75,27 @@ describe ActsAsAuthoritah::AccessControlList do
       @acl.match_identifier("Admin::ProjectsController#create").should eq "c"
     end
   end
+  
+  context "merge" do
+    before :each do
+      rules = [
+        ActsAsAuthoritah::AccessRule.new("Admin", nil, nil, "c"),
+        ActsAsAuthoritah::AccessRule.new("Admin", "Projects", nil, "d"),
+      ]
+      @acl1 = ActsAsAuthoritah::AccessControlList.new(rules)
+      
+      rules = [
+        ActsAsAuthoritah::AccessRule.new("Admin", nil, nil, "C")
+      ]
+      @acl2 = ActsAsAuthoritah::AccessControlList.new(rules)
+    end
+    
+    it "should merge two @acl2 into @acl1 overriding common rule using the one from @acl2" do
+      @acl1.store.should eq({"Admin"=>"c", "Admin::ProjectsController"=>"d"})
+      @acl2.store.should eq({"Admin"=>"C"})
+      @acl1.merge!(@acl2).store.should eq({"Admin"=>"C", "Admin::ProjectsController"=>"d"})
+      @acl1.store.should eq({"Admin"=>"C", "Admin::ProjectsController"=>"d"})
+      @acl2.store.should eq({"Admin"=>"C"})
+    end
+  end
 end
