@@ -13,8 +13,7 @@ require "acts_as_authoritah/acl_loader"
 require "acts_as_authoritah/identifier_parser"
 require "acts_as_authoritah/errors.rb"
 
-require 'spreadsheet'
-Spreadsheet.client_encoding = 'UTF-8'
+require 'csv'
 
 require "acts_as_authoritah/spreadsheets/access_rights_mapper"
 require "acts_as_authoritah/spreadsheets/spreadsheet_wrapper"

@@ -5,7 +5,7 @@ class ActsAsAuthoritah::AclLoader
     @path = path
     @files = []
     @contexts = []
-    Dir.glob(File.join(@path,"*.xls")).each{ |x|
+    Dir.glob(File.join(@path,"*.csv")).each{ |x|
       @files    << x
       @contexts << File.split(x).last.split('.').first
     }

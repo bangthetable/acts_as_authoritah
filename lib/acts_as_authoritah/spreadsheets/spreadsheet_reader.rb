@@ -1,8 +1,7 @@
 class ActsAsAuthoritah::SpreadsheetReader
   def initialize(path)
     if File.exists?(path)
-      @book  = Spreadsheet.open path
-      @sheet = @book.worksheets.first
+      @sheet  = CSV.parse open(path).read.strip
     else
       @error = "File not found"
     end
