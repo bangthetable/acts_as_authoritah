@@ -19,25 +19,25 @@ module ActsAsAuthoritah
          h.empty? ? !klass.send(:whitelist) : h[self.usertype(options)]
        end
      end
-     
+
      module ClassMethods
        def acts_as_authoritah(path, options={})
          @@whitelist = options[:whitelist] ||= false
          loader = ActsAsAuthoritah::AclLoader.new(path)
          @@contexts = loader.contexts
-         @@acls = loader.load  
+         @@acls = loader.load
        end
-       
+
        def valid_contexts
          @@contexts
        end
-       
+
        def get_acl(key = :default)
          h = @@acls[key]
-         h = @@acls[:default].clone.merge!(@@acls[key]) unless key.eql?(:default)
+         h = @@acls[:default].clone.merge(@@acls[key]) unless key.eql?(:default)
          h
        end
-       
+
        def whitelist
          @@whitelist
        end
